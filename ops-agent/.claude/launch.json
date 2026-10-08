@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "demo-service",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["backend/demo-service/app.js"],
+      "port": 3002
+    }
+  ]
+}
