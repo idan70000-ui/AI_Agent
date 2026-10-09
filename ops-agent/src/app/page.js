@@ -49,10 +49,10 @@ export default function HomePage() {
       <h2>what the agent is doing?</h2>
 
       {events.map((event, i) => (
-        <div key={i}>{event.type === "tool_called" ? `${event.tool} tool started ✨` : `${event.tool} tool returned 😎`}
-      
-      {event.output && <pre>{JSON.stringify(event.output, null, 2)}</pre>}
-      </div>
+        <div key={i}>
+          {event.type === "tool_called" ? `${event.tool} tool started ✨` : `tool returned 😎`}
+          {event.output && <pre>{JSON.stringify(event.output, null, 2)}</pre>}
+        </div>
       ))}
       <h2>Report 📄📄</h2>
       {error && <p>{error}</p>}
