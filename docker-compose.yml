@@ -12,8 +12,6 @@ services:
     container_name: demo_service
     ports:
       - "3002:3002"
-    env_file:
-      - ./backend/demo-service/.env
     environment:
       - MONGODB_URI=mongodb://mongo:27017/orders-api
     restart: unless-stopped
@@ -25,9 +23,8 @@ services:
     container_name: ops_agent
     ports:
       - "3004:3000"
-    env_file:
-      - ./ops-agent/.env
     environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
       - MONGO_URI=mongodb://mongo:27017/agent-inv
       - DEMO_SERVICE_URL=http://demo_service:3002
     restart: unless-stopped
