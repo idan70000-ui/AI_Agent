@@ -1,0 +1,38 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  demo-service:
+    build: ./backend/demo-service
+    container_name: demo_service
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./backend/demo-service/.env
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/orders-api
+    restart: unless-stopped
+    depends_on:
+      - mongo
+
+  ops-agent:
+    build: ./ops-agent
+    container_name: ops_agent
+    ports:
+      - "3004:3000"
+    env_file:
+      - ./ops-agent/.env
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/agent-inv
+      - DEMO_SERVICE_URL=http://demo_service:3002
+    restart: unless-stopped
+    depends_on:
+      - demo-service
+
+volumes:
+  mongo_data:
