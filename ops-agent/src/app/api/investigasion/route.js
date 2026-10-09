@@ -1,4 +1,6 @@
 
+export const dynamic = "force-dynamic";
+
 import { run } from "@openai/agents";
 import { agent } from "../../../lib/agent";
 import { saveinvestigation } from "../../../lib/db";
